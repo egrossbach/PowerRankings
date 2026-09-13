@@ -449,9 +449,11 @@ class GameScene extends Phaser.Scene {
 
   doJuke(time = this.time.now) {
       if (time > this.jukeCooldown) {
-        this.jukeTxt.setVisible(false);
+        this.jukeTxt.setText('Cooldown');
+        this.jukeTxt.setStyle({ color: '#848486' });
           this.time.delayedCall(2000, () => {
-            this.jukeTxt.setVisible(true);
+            this.jukeTxt.setText('JUKE');
+            this.jukeTxt.setStyle({ color: '#0508e4' });
           });
           this.isJuking = true;
           this.time.delayedCall(300, () => {
