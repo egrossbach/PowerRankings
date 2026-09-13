@@ -81,7 +81,7 @@ class MainMenuScene extends Phaser.Scene {
   preload() {
     this.load.image('playButtonImage', 'assets/playnowbutton.jpg');
     this.load.image('teamsButtonImage', 'assets/teamsbutton.jpg');
-    this.load.image('tutorialButtonImage', 'assets/tutorialbutton.jpg');
+    this.load.image('tutorialButtonImage', 'assets/tutorialButton.jpg');
     this.load.image('parkBGImage', 'assets/brookdalepark.jpg');
     this.load.image('nflLogoImage', 'assets/nfllogo.png');
     this.load.image('backButtonImage', 'assets/backbutton.jpg');
@@ -509,8 +509,12 @@ class GameScene extends Phaser.Scene {
 // --- GAME CONFIG ---
 const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: 800,
+    height: 600
+  },
   physics: {
       default: 'arcade',
       arcade: {
