@@ -427,7 +427,7 @@ class GameScene extends Phaser.Scene {
 
       // Opponent AI (Speed scales with OVR. e.g., OVR 50 = speed 50, OVR 99 = speed ~110)
       if (!this.isJuking) {
-          const oppSpeed = this.isLunging ? 300 : this.oppTeam.ovr * 1.1; 
+          const oppSpeed = this.isLunging ? 250 : this.oppTeam.ovr * 1.1; 
           this.physics.moveToObject(this.opponent, this.player, oppSpeed);
       } else {
           //this.opponent.body.setVelocity(0); // opponent hesitates during juke
