@@ -120,10 +120,10 @@ class MainMenuScene extends Phaser.Scene {
 
       this.add.image(0, 0, 'parkBGImage').setOrigin(0).setScale(3);
       this.add.image(580, 390, 'daleImage').setScale(2);
-      this.add.image(520, 55, 'nflLogoImage').setOrigin(0);
+      this.add.image(600, 45, 'nflLogoImage').setOrigin(0).setScale(1.2);
       //this.add.rectangle(410, 510, 550, 25, 0x000000, 0.5);
       this.add.image(105, 520, 'eaLogoImage').setScale(1);
-      this.add.text(70, 60, 'BROOKDALE LEAGUE       26', { fontSize: '40px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4 }).setOrigin(0);
+      this.add.text(60, 50, 'BROOKDALE LEAGUE       26', { fontSize: '48px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4 }).setOrigin(0);
 
       const createButton = (x, y, image, targetScene) => {
           const btn = this.add.image(x, y, image)
@@ -332,6 +332,8 @@ class GameScene extends Phaser.Scene {
   }
 
   create() {
+      this.input.addPointer(1);
+      
       // Field background
       this.add.image(375, 470, 'fieldImage').setOrigin(0.5).setScale(2.5);
       this.add.rectangle(380, 48, 550, 80, 0x4169E1, 0.5).setOrigin(0.5); // Endzone
