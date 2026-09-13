@@ -177,7 +177,7 @@ class TeamsScene extends Phaser.Scene {
       const selSound = this.sound.add('selectAudio', {volume: 1});
 
       const sortedTeams = [...teamsData].sort((a, b) => b.ovr - a.ovr);
-      const descBox = this.add.text(500, 150, 'Select a team to see description.', { fontSize: '20px', fontFamily: 'Eurostile', wordWrap: { width: 270 }, color: '#3a3a3a' });
+      const descBox = this.add.text(500, 155, 'Select a team to see description.', { fontSize: '20px', fontFamily: 'Eurostile', wordWrap: { width: 270 }, color: '#3a3a3a' });
 
       let startY = 100;
       let selectedButton = null;
@@ -389,17 +389,17 @@ class GameScene extends Phaser.Scene {
 
     createMobileControls() {
       // Juke button (Bottom left)
-      const jukeBtn = this.add.circle(670, 500, 70, 0x555555).setInteractive().setAlpha(0.5);
-      this.jukeTxt = this.add.text(670, 500, 'JUKE', { fontSize: '32px', fontStyle: 'bold', color: '#0508e4' }).setOrigin(0.5);
+      const jukeBtn = this.add.circle(670, 490, 80, 0x555555).setInteractive().setAlpha(0.5);
+      this.jukeTxt = this.add.text(670, 490, 'JUKE', { fontSize: '32px', fontStyle: 'bold', color: '#0508e4' }).setOrigin(0.5);
       jukeBtn.on('pointerdown', () => this.doJuke());
 
       // Virtual joystick (Bottom left, where D-pad used to be)
       this.joyStick = this.plugins.get('rexVirtualJoystick').add(this, {
-          x: 130,
-          y: 500,
-          radius: 70,
-          base: this.add.circle(0, 0, 70, 0x888888, 0.5),
-          thumb: this.add.circle(0, 0, 40, 0xcccccc, 0.8),
+          x: 140,
+          y: 490,
+          radius: 90,
+          base: this.add.circle(0, 0, 90, 0x888888, 0.5),
+          thumb: this.add.circle(0, 0, 60, 0xcccccc, 0.8),
       });
 
       this.joystickCursors = this.joyStick.createCursorKeys();
@@ -423,10 +423,6 @@ class GameScene extends Phaser.Scene {
       // Juke Mechanic
       if (Phaser.Input.Keyboard.JustDown(this.cursors.space) && time > this.jukeCooldown) {
           this.doJuke(time);
-          this.jukeTxt.setVisible(false);
-          this.time.delayedCall(2000, () => {
-            this.jukeTxt.setVisible(true);
-          });
       }
 
       // Opponent AI (Speed scales with OVR. e.g., OVR 50 = speed 50, OVR 99 = speed ~110)
@@ -453,6 +449,10 @@ class GameScene extends Phaser.Scene {
 
   doJuke(time = this.time.now) {
       if (time > this.jukeCooldown) {
+        this.jukeTxt.setVisible(false);
+          this.time.delayedCall(2000, () => {
+            this.jukeTxt.setVisible(true);
+          });
           this.isJuking = true;
           this.time.delayedCall(300, () => {
               this.isJuking = false;
