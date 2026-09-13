@@ -328,7 +328,7 @@ class GameScene extends Phaser.Scene {
       this.isJuking = false;
       this.jukeCooldown = 0;
       this.isLunging = false;
-      this.lungeCooldown = Phaser.Math.Between(2000, 4000);
+      this.lungeCooldown = Phaser.Math.Between(2500, 4000);
   }
 
   create() {
@@ -427,7 +427,7 @@ class GameScene extends Phaser.Scene {
 
       // Opponent AI (Speed scales with OVR. e.g., OVR 50 = speed 50, OVR 99 = speed ~110)
       if (!this.isJuking) {
-          const oppSpeed = this.isLunging ? 250 : this.oppTeam.ovr * 1.1; 
+          const oppSpeed = this.isLunging ? 200 : this.oppTeam.ovr * 1.1; 
           this.physics.moveToObject(this.opponent, this.player, oppSpeed);
       } else {
           //this.opponent.body.setVelocity(0); // opponent hesitates during juke
@@ -464,10 +464,10 @@ class GameScene extends Phaser.Scene {
   doLunge(){
       if (this.isLunging) return;
       this.isLunging = true;
-      this.time.delayedCall(300, () => {
+      this.time.delayedCall(400, () => {
               this.isLunging = false;
         });
-      this.lungeCooldown = Phaser.Math.Between(2000, 4000);
+      this.lungeCooldown = Phaser.Math.Between(2500, 4000);
       this.time.delayedCall(this.lungeCooldown, () => this.doLunge());
   }
 
