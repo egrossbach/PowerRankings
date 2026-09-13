@@ -10,7 +10,7 @@ const teamsData = [
   { id: 9, headshot: "gabeHeadImage", manager: "Gabe", name: "Mr. Glass Reborn", ovr: 84, desc: "Pack mentality, great teamwork." },
   { id: 10, headshot: "oliverHeadImage", manager: "Oliver", name: "DHhate", ovr: 76, desc: "Quick but fragile." }
 ];
-
+/*
 // --- SPLASH SCREEN ---
 class SplashScene extends Phaser.Scene {
   constructor() { super('SplashScene'); }
@@ -73,7 +73,7 @@ class SplashScene extends Phaser.Scene {
     });
   }
 }
-
+*/
 // --- MAIN MENU ---
 class MainMenuScene extends Phaser.Scene {
   constructor() { super('MainMenuScene'); }
@@ -105,6 +105,7 @@ class MainMenuScene extends Phaser.Scene {
     this.load.image('scoreboardImage', 'assets/scoreboard.png');
     this.load.image('refImage', 'assets/refShort.png');
     this.load.image('refTDImage', 'assets/refTD.png');
+    this.load.image('eaLogoImage', 'assets/eaLogoPix.png');
 
     this.load.audio('nflAudio', 'assets/nflSong.mp3');
     this.load.audio('selectAudio', 'assets/select.mp3');
@@ -118,23 +119,24 @@ class MainMenuScene extends Phaser.Scene {
       const selSound = this.sound.add('selectAudio', {volume: 1});
 
       this.add.image(0, 0, 'parkBGImage').setOrigin(0).setScale(3);
-      this.add.image(575, 390, 'daleImage').setScale(2);
-      this.add.image(530, 65, 'nflLogoImage').setOrigin(0);
+      this.add.image(580, 390, 'daleImage').setScale(2);
+      this.add.image(520, 55, 'nflLogoImage').setOrigin(0);
       //this.add.rectangle(410, 510, 550, 25, 0x000000, 0.5);
-      this.add.image(105, 520, 'eaLogoImage').setScale(0.5);
-      this.add.text(80, 70, 'BROOKDALE LEAGUE       26', { fontSize: '40px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4 }).setOrigin(0);
+      this.add.image(105, 520, 'eaLogoImage').setScale(1);
+      this.add.text(70, 60, 'BROOKDALE LEAGUE       26', { fontSize: '40px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4 }).setOrigin(0);
 
       const createButton = (x, y, image, targetScene) => {
           const btn = this.add.image(x, y, image)
+              .setScale(1.5)
               .setInteractive({ useHandCursor: true })
               .on('pointerover', () => btn.setTint(0xcccccc))
               .on('pointerout', () => btn.clearTint())
               .on('pointerdown', () => {this.scene.start(targetScene); selSound.play();});
       };
 
-      createButton(230, 170, 'playButtonImage', 'TeamSelectScene');
-      createButton(230, 220, 'teamsButtonImage', 'TeamsScene');
-      createButton(230, 270, 'tutorialButtonImage', 'TutorialScene');
+      createButton(270, 170, 'playButtonImage', 'TeamSelectScene');
+      createButton(270, 240, 'teamsButtonImage', 'TeamsScene');
+      createButton(270, 310, 'tutorialButtonImage', 'TutorialScene');
 
   }
 }
@@ -147,19 +149,20 @@ class TutorialScene extends Phaser.Scene {
 
       this.add.image(0, 0, 'parkBGImage').setOrigin(0).setScale(3);
       this.cameras.main.setBackgroundColor('#222222');
-      this.add.text(400, 300, 'Figure it out bro', { fontSize: '40px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4  }).setOrigin(0.5);
+      this.add.text(400, 300, 'Figure it out bro', { fontSize: '48px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4  }).setOrigin(0.5);
       
       const selSound = this.sound.add('selectAudio', {volume: 1});
 
       const createButton = (x, y, image, targetScene) => {
           const btn = this.add.image(x, y, image)
+              .setScale(1.5)
               .setInteractive({ useHandCursor: true })
               .on('pointerover', () => btn.setTint(0xcccccc))
               .on('pointerout', () => btn.clearTint())
               .on('pointerdown', () => {this.scene.start(targetScene); selSound.play();});
       };
 
-      createButton(65, 40, 'backButtonImage', 'MainMenuScene');
+      createButton(75, 40, 'backButtonImage', 'MainMenuScene');
   }
 }
 
@@ -169,19 +172,20 @@ class TeamsScene extends Phaser.Scene {
 
   create() {
       this.add.image(0, 0, 'parkBGImage').setOrigin(0).setScale(3);
-      this.add.image(400, 20, 'clipboardImage').setOrigin(0).setScale(1.5);
+      this.add.image(450, 30, 'clipboardImage').setOrigin(0).setScale(1.5);
 
       const selSound = this.sound.add('selectAudio', {volume: 1});
 
       const sortedTeams = [...teamsData].sort((a, b) => b.ovr - a.ovr);
-      const descBox = this.add.text(450, 150, 'Select a team to see description.', { fontSize: '18px', fontFamily: 'Eurostile', wordWrap: { width: 270 }, color: '#3a3a3a' });
+      const descBox = this.add.text(500, 150, 'Select a team to see description.', { fontSize: '20px', fontFamily: 'Eurostile', wordWrap: { width: 270 }, color: '#3a3a3a' });
 
       let startY = 100;
       let selectedButton = null;
       sortedTeams.forEach((team, index) => {
-          const yPos = startY + (index * 45);
+          const yPos = startY + (index * 50);
 
-          const btn = this.add.image(50, yPos - 5, 'blankButtonImage')
+          const btn = this.add.image(7, yPos - 7, 'blankButtonImage')
+              .setScale(1.5)
               .setOrigin(0)
               .setInteractive({ useHandCursor: true });
 
@@ -207,8 +211,8 @@ class TeamsScene extends Phaser.Scene {
               descBox.setText(team.desc);
             });
 
-          this.add.text(60, yPos, `${team.name} - OVR: ${team.ovr}`, {
-              fontSize: '18px',
+          this.add.text(20, yPos, `${team.name} - OVR: ${team.ovr}`, {
+              fontSize: '26px',
               fontFamily: 'Eurostile',
               fontStyle: 'bold',
               color: '#3a3a3a'
@@ -218,6 +222,7 @@ class TeamsScene extends Phaser.Scene {
 
       const createButton = (x, y, image, targetScene) => {
           const btn = this.add.image(x, y, image)
+              .setScale(1.5)
               .setInteractive({ useHandCursor: true })
               .on('pointerover', () => btn.setTint(0xcccccc))
               .on('pointerout', () => btn.clearTint())
@@ -225,7 +230,7 @@ class TeamsScene extends Phaser.Scene {
               .on('pointerdown', () => {this.scene.start(targetScene); selSound.play();});
       };
 
-      createButton(65, 40, 'backButtonImage', 'MainMenuScene');
+      createButton(75, 40, 'backButtonImage', 'MainMenuScene');
     }
 }
 
@@ -246,38 +251,40 @@ class TeamSelectScene extends Phaser.Scene {
       
       const createButton = (x, y, image, targetScene) => {
           const btn = this.add.image(x, y, image)
+              .setScale(1.5)
               .setInteractive({ useHandCursor: true })
               .on('pointerover', () => btn.setTint(0xcccccc))
               .on('pointerout', () => btn.clearTint())
               .on('pointerdown', () => {this.scene.start(targetScene); selSound.play();});
       };
 
-      createButton(65, 40, 'backButtonImage', 'MainMenuScene');
+      createButton(75, 40, 'backButtonImage', 'MainMenuScene');
 
-      this.add.text(400, 250, 'VS', { fontSize: '38px', fontFamily: 'Eurostile', fontStyle: 'bold', color: '#faa170', stroke: '#000000', strokeThickness: 4 }).setOrigin(0.5);
-      this.add.image(200, 500, 'controllerImage').setOrigin(0.5).setScale(0.2);
+      this.add.text(400, 250, 'VS', { fontSize: '48px', fontFamily: 'Eurostile', fontStyle: 'bold', color: '#faa170', stroke: '#000000', strokeThickness: 4 }).setOrigin(0.5);
+      this.add.image(200, 550, 'controllerImage').setOrigin(0.5).setScale(0.2);
 
       // UI References
-      this.leftHeadshot = this.add.image(200, 220, 'ethanHeadshotImage').setOrigin(0.5);
-      this.leftName = this.add.text(200, 320, '', { fontSize: '32px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4  }).setOrigin(0.5);
-      this.leftOvr = this.add.text(200, 370, '', { fontSize: '24px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4   }).setOrigin(0.5);
+      this.leftHeadshot = this.add.image(200, 240, 'ethanHeadshotImage').setOrigin(0.5).setScale(1.25);
+      this.leftName = this.add.text(200, 340, '', { fontSize: '36px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4  }).setOrigin(0.5);
+      this.leftOvr = this.add.text(200, 390, '', { fontSize: '32px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4   }).setOrigin(0.5);
       
-      this.rightHeadshot = this.add.image(600, 220, 'deutschHeadImage').setOrigin(0.5);
-      this.rightName = this.add.text(600, 320, '', { fontSize: '32px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4   }).setOrigin(0.5);
-      this.rightOvr = this.add.text(600, 370, '', { fontSize: '24px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4   }).setOrigin(0.5);
+      this.rightHeadshot = this.add.image(600, 240, 'deutschHeadImage').setOrigin(0.5).setScale(1.25);
+      this.rightName = this.add.text(600, 340, '', { fontSize: '36px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4   }).setOrigin(0.5);
+      this.rightOvr = this.add.text(600, 390, '', { fontSize: '32px', fontFamily: 'Eurostile', fontStyle: 'bold', stroke: '#000000', strokeThickness: 4   }).setOrigin(0.5);
 
       this.updateTeamDisplays();
 
       // Up/Down Arrows for Left Team
-      this.upArrowL = this.add.image(200, 120, 'arrowImage').setRotation(-Math.PI/2).setScale(0.5).setOrigin(0.5).setInteractive().on('pointerover', () => this.upArrowL.setTint(0xcccccc)).on('pointerout', () => this.upArrowL.clearTint()).on('pointerdown', () => {this.changeTeam('left', -1); selSound.play();});
-      this.downArrowL = this.add.image(200, 420, 'arrowImage').setRotation(Math.PI/2).setScale(0.5).setOrigin(0.5).setInteractive().on('pointerover', () => this.downArrowL.setTint(0xcccccc)).on('pointerout', () => this.downArrowL.clearTint()).on('pointerdown', () => {this.changeTeam('left', 1); selSound.play();});
+      this.upArrowL = this.add.image(200, 120, 'arrowImage').setRotation(-Math.PI/2).setScale(0.75).setOrigin(0.5).setInteractive().on('pointerover', () => this.upArrowL.setTint(0xcccccc)).on('pointerout', () => this.upArrowL.clearTint()).on('pointerdown', () => {this.changeTeam('left', -1); selSound.play();});
+      this.downArrowL = this.add.image(200, 450, 'arrowImage').setRotation(Math.PI/2).setScale(0.75).setOrigin(0.5).setInteractive().on('pointerover', () => this.downArrowL.setTint(0xcccccc)).on('pointerout', () => this.downArrowL.clearTint()).on('pointerdown', () => {this.changeTeam('left', 1); selSound.play();});
 
       // Up/Down Arrows for Right Team
-      this.upArrowR = this.add.image(600, 120, 'arrowImage').setRotation(-Math.PI/2).setScale(0.5).setOrigin(0.5).setInteractive().on('pointerover', () => this.upArrowR.setTint(0xcccccc)).on('pointerout', () => this.upArrowR.clearTint()).on('pointerdown', () => {this.changeTeam('right', -1); selSound.play();});
-      this.downArrowR = this.add.image(600, 420, 'arrowImage').setRotation(Math.PI/2).setScale(0.5).setOrigin(0.5).setInteractive().on('pointerover', () => this.downArrowR.setTint(0xcccccc)).on('pointerout', () => this.downArrowR.clearTint()).on('pointerdown', () => {this.changeTeam('right', 1); selSound.play();});
+      this.upArrowR = this.add.image(600, 120, 'arrowImage').setRotation(-Math.PI/2).setScale(0.75).setOrigin(0.5).setInteractive().on('pointerover', () => this.upArrowR.setTint(0xcccccc)).on('pointerout', () => this.upArrowR.clearTint()).on('pointerdown', () => {this.changeTeam('right', -1); selSound.play();});
+      this.downArrowR = this.add.image(600, 450, 'arrowImage').setRotation(Math.PI/2).setScale(0.75).setOrigin(0.5).setInteractive().on('pointerover', () => this.downArrowR.setTint(0xcccccc)).on('pointerout', () => this.downArrowR.clearTint()).on('pointerdown', () => {this.changeTeam('right', 1); selSound.play();});
 
       // Start Button
-      this.startBtn = this.add.image(400, 500, 'startButtonImage')
+      this.startBtn = this.add.image(400, 550, 'startButtonImage')
+          .setScale(1.5)
           .setOrigin(0.5)
           .setInteractive({ useHandCursor: true })
           .on('pointerover', () => this.startBtn.setTint(0xcccccc))
@@ -334,26 +341,16 @@ class GameScene extends Phaser.Scene {
       this.selSound = this.sound.add('selectAudio', {volume: 1});
       this.whistleSound = this.sound.add('whistleAudio', {volume: 1});
 
-      const createButton = (x, y, image, targetScene) => {
-          const btn = this.add.image(x, y, image)
-              .setInteractive({ useHandCursor: true })
-              .on('pointerover', () => btn.setTint(0xcccccc))
-              .on('pointerout', () => btn.clearTint())
-              .on('pointerdown', () => {this.scene.start(targetScene); this.selSound.play();});
-      };
-
-      createButton(65, 40, 'backButtonImage', 'TeamSelectScene');
-
       // UI & Scoreboard
-      this.scoreText = this.add.text(730, 90, '', { fontSize: '22px', fontStyle: 'bold', fontFamily: 'Eurostile', wordWrap: { width: 150 }, color: '#fabe70'  }).setOrigin(0.5).setRotation(-0.1);
+      this.scoreText = this.add.text(730, 95, '', { fontSize: '24px', fontStyle: 'bold', fontFamily: 'Eurostile', wordWrap: { width: 150 }, color: '#fabe70'  }).setOrigin(0.5).setRotation(-0.15);
       this.updateScoreboard();
 
       // Physics Sprites (Placeholders for images)
-      this.player = this.add.image(379, 500, this.userTeam.headshot).setScale(0.5);
+      this.player = this.add.image(379, 500, this.userTeam.headshot).setScale(0.6);
       this.physics.add.existing(this.player);
       this.player.body.setCollideWorldBounds(true).setSize(80, 80, true);
 
-      this.opponent = this.add.image(379, 150, this.oppTeam.headshot).setScale(0.5);
+      this.opponent = this.add.image(379, 150, this.oppTeam.headshot).setScale(0.6);
       this.physics.add.existing(this.opponent);
       this.opponent.body.setCollideWorldBounds(true).setSize(80, 80, true);
 
@@ -373,6 +370,17 @@ class GameScene extends Phaser.Scene {
       this.physics.add.overlap(this.player, this.lBound, this.handleTackle, null, this);
       this.physics.add.overlap(this.player, this.rBound, this.handleTackle, null, this);
 
+      const createButton = (x, y, image, targetScene) => {
+          const btn = this.add.image(x, y, image)
+              .setScale(1.5)
+              .setInteractive({ useHandCursor: true })
+              .on('pointerover', () => btn.setTint(0xcccccc))
+              .on('pointerout', () => btn.clearTint())
+              .on('pointerdown', () => {this.scene.start(targetScene); this.selSound.play();});
+      };
+
+      createButton(75, 40, 'backButtonImage', 'TeamSelectScene');
+
       // Begin Lunges
       this.time.delayedCall(this.lungeCooldown, () => this.doLunge());
   }
@@ -380,7 +388,7 @@ class GameScene extends Phaser.Scene {
     createMobileControls() {
       // Juke button (Bottom left)
       const jukeBtn = this.add.circle(670, 500, 70, 0x555555).setInteractive().setAlpha(0.5);
-      this.jukeTxt = this.add.text(670, 500, 'JUKE', { fontSize: '32px', color: '#0508e4' }).setOrigin(0.5);
+      this.jukeTxt = this.add.text(670, 500, 'JUKE', { fontSize: '32px', fontStyle: 'bold', color: '#0508e4' }).setOrigin(0.5);
       jukeBtn.on('pointerdown', () => this.doJuke());
 
       // Virtual joystick (Bottom left, where D-pad used to be)
@@ -499,6 +507,7 @@ class GameScene extends Phaser.Scene {
       this.add.text(400, 250, message, { fontSize: '48px', fontStyle: 'bold', fontFamily: 'Eurostile', color: '#fabe70', stroke: '#000000', strokeThickness: 4  }).setOrigin(0.5);
       
       const btn = this.add.image(400, 350, 'backButtonImage')
+              .setScale(1.5)
               .setInteractive({ useHandCursor: true })
               .on('pointerover', () => btn.setTint(0xcccccc))
               .on('pointerout', () => btn.clearTint())
@@ -532,7 +541,7 @@ const config = {
           start: true
       }]
   },
-  scene: [SplashScene, MainMenuScene, TeamsScene, TutorialScene, TeamSelectScene, GameScene]
+  scene: [MainMenuScene, TeamsScene, TutorialScene, TeamSelectScene, GameScene]
 };
 
 const game = new Phaser.Game(config);
