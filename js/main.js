@@ -379,17 +379,17 @@ class GameScene extends Phaser.Scene {
 
     createMobileControls() {
       // Juke button (Bottom left)
-      const jukeBtn = this.add.circle(700, 520, 40, 0x555555).setInteractive().setAlpha(0.5);
-      this.jukeTxt = this.add.text(700, 520, 'JUKE', { fontSize: '16px', color: '#0508e4' }).setOrigin(0.5);
+      const jukeBtn = this.add.circle(670, 500, 70, 0x555555).setInteractive().setAlpha(0.5);
+      this.jukeTxt = this.add.text(670, 500, 'JUKE', { fontSize: '32px', color: '#0508e4' }).setOrigin(0.5);
       jukeBtn.on('pointerdown', () => this.doJuke());
 
       // Virtual joystick (Bottom left, where D-pad used to be)
       this.joyStick = this.plugins.get('rexVirtualJoystick').add(this, {
-          x: 100,
-          y: 520,
-          radius: 50,
-          base: this.add.circle(0, 0, 50, 0x888888, 0.5),
-          thumb: this.add.circle(0, 0, 25, 0xcccccc, 0.8),
+          x: 130,
+          y: 500,
+          radius: 70,
+          base: this.add.circle(0, 0, 70, 0x888888, 0.5),
+          thumb: this.add.circle(0, 0, 40, 0xcccccc, 0.8),
       });
 
       this.joystickCursors = this.joyStick.createCursorKeys();
@@ -509,11 +509,15 @@ class GameScene extends Phaser.Scene {
 // --- GAME CONFIG ---
 const config = {
   type: Phaser.AUTO,
+  parent: 'game-container',
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: 800,
     height: 600
+  },
+  input: {
+    activePointers: 2
   },
   physics: {
       default: 'arcade',
