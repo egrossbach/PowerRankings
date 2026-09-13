@@ -10,7 +10,7 @@ const teamsData = [
   { id: 9, headshot: "gabeHeadImage", manager: "Gabe", name: "Mr. Glass Reborn", ovr: 84, desc: "Pack mentality, great teamwork." },
   { id: 10, headshot: "oliverHeadImage", manager: "Oliver", name: "DHhate", ovr: 76, desc: "Quick but fragile." }
 ];
-/*
+
 // --- SPLASH SCREEN ---
 class SplashScene extends Phaser.Scene {
   constructor() { super('SplashScene'); }
@@ -73,7 +73,7 @@ class SplashScene extends Phaser.Scene {
     });
   }
 }
-*/
+
 // --- MAIN MENU ---
 class MainMenuScene extends Phaser.Scene {
   constructor() { super('MainMenuScene'); }
@@ -543,7 +543,7 @@ const config = {
           start: true
       }]
   },
-  scene: [MainMenuScene, TeamsScene, TutorialScene, TeamSelectScene, GameScene]
+  scene: [SplashScene, MainMenuScene, TeamsScene, TutorialScene, TeamSelectScene, GameScene]
 };
 
 const game = new Phaser.Game(config);
