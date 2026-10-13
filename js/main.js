@@ -450,6 +450,7 @@ class GameScene extends Phaser.Scene {
 
   doJuke(time = this.time.now) {
       if (time > this.jukeCooldown) {
+        this.player.setTint(0x00FF00);
         this.jukeTxt.setText('Cooldown');
         this.jukeTxt.setStyle({ color: '#848486' });
           this.time.delayedCall(2000, () => {
@@ -457,8 +458,9 @@ class GameScene extends Phaser.Scene {
             this.jukeTxt.setStyle({ color: '#0508e4' });
           });
           this.isJuking = true;
-          this.time.delayedCall(300, () => {
+          this.time.delayedCall(400, () => {
               this.isJuking = false;
+              this.player.setTint(0xffffff);
           });
           this.jukeCooldown = time + 2000; // 2 sec cooldown
       }
@@ -467,7 +469,7 @@ class GameScene extends Phaser.Scene {
   doLunge(){
       if (this.isLunging) return;
       this.isLunging = true;
-      this.time.delayedCall(400, () => {
+      this.time.delayedCall(300, () => {
               this.isLunging = false;
         });
       this.lungeCooldown = Phaser.Math.Between(2500, 4000);
@@ -475,6 +477,7 @@ class GameScene extends Phaser.Scene {
   }
 
   handleTackle() {
+          if(!this.isJuking){      
           this.whistleSound.play();  
           this.physics.pause();
           if(!this.isResetting) this.oppScore++;
@@ -484,6 +487,7 @@ class GameScene extends Phaser.Scene {
             this.resetRound();
             this.isResetting = false;
           });
+        }
   }
 
   resetRound() {
